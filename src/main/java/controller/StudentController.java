@@ -5,10 +5,15 @@ import model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import service.IClaszService;
 import service.IStudentService;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +47,15 @@ public class StudentController {
     }
 
     @PostMapping("/edit")
-    public String edit1(@ModelAttribute Student student) {
+    public String edit1(Student student, @RequestParam MultipartFile image) {
+        String fileName = image.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(image.getBytes(),
+                    new File("D:\\test\\" + fileName));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        student.setImg(fileName);
         studentService.save(student);
         return "redirect:/students";
     }
@@ -58,5 +71,53 @@ public class StudentController {
         studens= (List<Student>) studentService.findAllByScoreGreaterThan(8);
         model.addAttribute("students",studens);
         return "/list";
+    }
+
+//    @GetMapping("/upload")
+//    public ModelAndView showCreateIMG() {
+//        ModelAndView modelAndView = new ModelAndView("/createIMG");
+//        return modelAndView;
+//    }
+//
+//
+//    @PostMapping("/show")
+//    public ModelAndView saveIMG(MultipartFile image, String imageLink) {
+//        String fileName = image.getOriginalFilename();
+//        try {
+//            FileCopyUtils.copy(image.getBytes(),
+//                    new File("/D:\\test\\/" + fileName)); // coppy ảnh từ ảnh nhận được vào thư mục quy định,
+//            // đường dẫn ảo là /nhuanh/
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        ModelAndView modelAndView = new ModelAndView("/index2");
+//        modelAndView.addObject("src", fileName);
+//        modelAndView.addObject("srcImg", imageLink);
+//        return modelAndView;
+//    }
+
+    @GetMapping("create")
+    public String showCreate(Model model) {
+        model.addAttribute("student",new Student());
+        return "/create";
+    }
+    @PostMapping("create")
+    public String createProduct(Student student, @RequestParam MultipartFile image) {
+        String fileName = image.getOriginalFilename();
+        try {
+            FileCopyUtils.copy(image.getBytes(),
+                    new File("D:\\test\\" + fileName));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        student.setImg(fileName);
+        studentService.save(student);
+        return "redirect:/students";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        studentService.remove(id);
+        return "redirect:/students";
     }
 }

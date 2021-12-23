@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Create student</h1>
+<p>
+    <a href="/students">student list</a>
+</p>
+<form action="" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td><input type="text" placeholder="name" name="name"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="age" name="age"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="score" name="score"/></td>
+        </tr>
+        <select name="clasz">
+            <option th:each="cl : ${clasz}" th:value="${cl.getId()}" th:text="${cl.getName()}"></option>
+        </select>
+        <div>
+            <label>Image</label>
+            <input type="file" name="image"/>
+        </div>
+        <button> create</button>
+    </table>
+</form>
+</body>
+</html>

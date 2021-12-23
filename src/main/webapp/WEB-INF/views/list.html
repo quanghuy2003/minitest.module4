@@ -6,6 +6,7 @@
     <title>Title</title>
 </head>
 <body>
+<a href="/students/create">create</a>
 <form action="">
     <input type="text" placeholder="nhập tên" name="key">
     <button >tìm</button>
@@ -16,20 +17,27 @@
 <table border="1">
     <tr>
         <th>name</th>
+        <th>img</th>
         <th>age</th>
         <th>score</th>
         <th>class</th>
         <th>edit</th>
+        <th>delete</th>
     </tr>
     <th:block th:each="student : ${students}">
         <tr>
             <td th:text="${student.getName()}"></td>
+            <td> <img th:src="@{'/nhuanh/'+${student.getImg()}}" alt=""></td>
             <td th:text="${student.getAge()}"></td>
             <td th:text="${student.getScore()}"></td>
             <td th:text="${student.getClasz().getName()}"></td>
             <td><a th:href="@{/students/edit/__${student.getId()}__}">edit</a></td>
+            <td><a th:href="@{/students/delete/__${student.getId()}__}">delete</a></td>
         </tr>
     </th:block>
 </table>
+<h1 style="text-align: center"></h1>
+<img th:src="@{'/nhuanh/'+${src}}" alt="">
+<img th:src="@{${srcImg}}" alt="">
 </body>
 </html>

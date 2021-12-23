@@ -11,6 +11,7 @@ public class Student {
     private String name;
     private int score;
     private int age;
+    private  String img;
 
     @ManyToOne
     private Clasz clasz;
@@ -31,6 +32,23 @@ public class Student {
         this.score = score;
         this.age = age;
         this.clasz = clasz;
+    }
+
+    public Student(Long id, String name, int score, int age, String img, Clasz clasz) {
+        this.id = id;
+        this.name = name;
+        this.score = score;
+        this.age = age;
+        this.img = img;
+        this.clasz = clasz;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Long getId() {

@@ -126,24 +126,24 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         registry.addFormatter(new ClaszFormatter(applicationContext.getBean(ClaszService.class)));
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry .addResourceHandler("/**") .addResourceLocations("/assets/");
-    }
-
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/nhuanh/**") //đường dẫn ảo thay thế cho đường dẫn thật bên dưới (ngắn hơn)
-//                .addResourceLocations("file:" + "/D:\\test\\/");
-//
+//        registry .addResourceHandler("/**") .addResourceLocations("/assets/");
 //    }
-//
-//    @Bean(name = "multipartResolver")
-//    public CommonsMultipartResolver getResolver() throws IOException {
-//        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-//        resolver.setMaxUploadSizePerFile(52428800); //kích thước tối đa
-//        return resolver;
-//    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/nhuanh/**") //đường dẫn ảo thay thế cho đường dẫn thật bên dưới (ngắn hơn)
+                .addResourceLocations("file:" + "/D:\\test\\/");
+
+    }
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver getResolver() throws IOException {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setMaxUploadSizePerFile(52428800); //kích thước tối đa
+        return resolver;
+    }
 
     @Bean
     public IStudentService studentService() {
