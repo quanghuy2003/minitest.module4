@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/students/edit" method="post">
+    <input type="hidden" name="id" th:value="${student.getId()}">
+    <input type="text" name="name" th:value="${student.getName()}">
+    <input type="text" name="age" th:value="${student.getAge()}">
+    <input type="text" name="score" th:value="${student.getScore()}">
+    <select name="clasz">
+        <option th:each="cl : ${clasz}" th:value="${cl.getId()}" th:text="${cl.getName()}"></option>
+    </select>
+    <button> edit</button>
+</form>
+</body>
+</html>
