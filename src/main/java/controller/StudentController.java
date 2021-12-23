@@ -51,4 +51,12 @@ public class StudentController {
     public Iterable<Clasz> claszs() {
         return claszService.findAll();
     }
+
+    @PostMapping("")
+    public String score (Model model){
+        List<Student> studens;
+        studens= (List<Student>) studentService.findAllByScoreGreaterThan(8);
+        model.addAttribute("students",studens);
+        return "/list";
+    }
 }
